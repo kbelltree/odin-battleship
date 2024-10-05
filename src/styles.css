@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+}
+
+:root {
+    --main-blue: #00adee;
+    --hit-pink: #fa9ec7;
+    --miss-gray: #e3e1e4;
+    --ship-yellow: #f5f979;
+    --overlay: rgba(255, 255, 225, 0.9);
+    --shipHighlight: #bcc060;
+}
+
+/* ibm-plex-mono-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/ibm-plex-mono-v19-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* ibm-plex-mono-600italic - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 600;
+    src: url('./fonts/ibm-plex-mono-v19-latin-600italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* ibm-plex-mono-600 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 600;
+    src: url('./fonts/ibm-plex-mono-v19-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--main-blue);
+    display: grid;
+    grid-template-rows: 580px 1fr auto;
+    font-family: 'IBM Plex Mono';
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 2px solid black;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(95%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* modal overlay */
+.initial-overlay,
+.ending-overlay {
+    grid-row: 1 / -1;
+    background-color: white;
+    background-color: var(--overlay);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+}
+
+/* modal content for one player */
+.modal-start1,
+.modal-end {
+    background-color: var(--miss-gray);
+    padding: 1.75rem;
+    border: 2px solid black;
+    border-radius: 15px;
+    width: max(25rem, 30%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title,
+#question {
+    color: black;
+    font-weight: 600;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+.modal-start1 #enter-btn {
+    background-color: var(--main-blue);
+    margin-top: 2rem;
+}
+
+/* main game */
+.main-container {
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    margin-top: 6rem;
+    max-width: 11rem;
+}
+
+.ship-buttons,
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.control-buttons {
+    margin-top: 1rem;
+}
+
+.ship-buttons > button {
+    width: 10rem;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    background: var(--shipHighlight);
+    border-radius: 25px;
+}
+
+.ship-buttons > button:hover,
+.ship-buttons > button:focus {
+    background: var(--shipHighlight);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.control-buttons > button {
+    padding: 0 0.5rem;
+    height: 2.5rem;
+    color: white;
+    background: black;
+}
+
+.control-buttons > button:hover,
+.control-buttons > button:focus {
+    color: white;
+    background: rgb(134, 133, 133);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+#start-btn {
+    width: 8rem;
+    height: 2.75rem;
+    margin-top: 2rem;
+    padding: 0 0.5rem;
+    color: black;
+    background: white;
+    border-radius: 0;
+}
+
+#start-btn:hover,
+#start-btn:focus {
+    color: white;
+    background: rgb(134, 133, 133);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+#name1,
+#name2 {
+    margin: 1.5rem 0;
+    align-self: baseline;
+}
+
+#own-board,
+#attack-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gameboard-frame {
+    width: 450px;
+    height: 0;
+    padding-bottom: 100%;
+    background-color: var(--main-blue);
+}
+
+#gameboard1,
+#gameboard2 {
+    display: grid;
+    width: 100%;
+    gap: 1px;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+}
+
+.square {
+    padding-bottom: 100%;
+    height: 0;
+    background-color: white;
+    position: relative;
+}
+
+.index-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.message-container {
+    grid-row: 2 / 3;
+    width: 65%;
+    margin-top: 2rem;
+    justify-self: center;
+    text-align: center;
+    overflow: auto;
+}
+
+.message-container p {
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.75rem;
+    color: var(--ship-yellow);
+}
+
+.message-container p.highlight {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.footer {
+    margin: 1rem auto;
+    grid-row: 3 / -1;
+}
+
+/* Utility */
+.hidden {
+    display: none;
+}
+
+p .wrap {
+    word-wrap: break-word;
+}
+
+.ship-position {
+    background-color: var(--ship-yellow);
+    text-align: center;
+}
+
+.hit-position {
+    /* Ensure absolute positioning for the hit-position */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--hit-pink);
+}
+
+.miss-position {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--miss-gray);
+}
+
+button.unset {
+    background-color: var(--ship-yellow);
+}

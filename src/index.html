@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Battleship Game (The Odin Project)</title>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+        <div class="initial-overlay">
+            <h1 id="title">battleship game</h1>
+            <div class="modal-start1">
+                <!-- <button id="two-players">switch to two-player</button> -->
+                <p>Click Enter to begin</p>
+                <button id="enter-btn">enter</button>
+            </div>
+            <div class="modal-start2 hidden">
+                <p>This is currently under construction.</p>
+                <button id="one-player">switch to single player</button>
+                <h2>enter player's name (optional)</h2>
+                <form id="form">
+                    <div>
+                        <label for="name1">first player:</label>
+                        <input
+                            type="text"
+                            name="name1"
+                            id="name1"
+                            maxlength="18"
+                        />
+                    </div>
+                    <div>
+                        <label for="name2">second player:</label>
+                        <input
+                            type="text"
+                            name="name2"
+                            id="name2"
+                            maxlength="18"
+                        />
+                    </div>
+                    <button id="cancel-btn" type="button">cancel</button>
+                    <button id="form-btn">enter</button>
+                </form>
+            </div>
+        </div>
+        <div class="ending-overlay hidden">
+            <h1 id="question">Want to replay?</h1>
+            <div class="modal-end">
+                <button id="replay-btn">play again</button>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="buttons-container">
+                <div class="ship-buttons">
+                    <button id="carrier-btn" data-ship="carrier" class="unset">
+                        carrier
+                    </button>
+                    <button
+                        id="battle-btn"
+                        data-ship="battleShip"
+                        class="unset"
+                    >
+                        battle ship
+                    </button>
+                    <button
+                        id="destroyer-btn"
+                        data-ship="destroyer"
+                        class="unset"
+                    >
+                        destroyer
+                    </button>
+                    <button
+                        id="submarine-btn"
+                        data-ship="submarine"
+                        class="unset"
+                    >
+                        submarine
+                    </button>
+                    <button
+                        id="patrol-btn"
+                        data-ship="patrolShip"
+                        class="unset"
+                    >
+                        patrol ship
+                    </button>
+                </div>
+                <div class="control-buttons">
+                    <button id="rotate-btn">rotate</button>
+                    <button id="reset-btn">reset</button>
+                </div>
+                <button id="start-btn">start</button>
+            </div>
+            <div id="own-board">
+                <div id="name1">
+                    <h1>Own Grid</h1>
+                </div>
+                <div class="gameboard-frame">
+                    <div id="gameboard1"></div>
+                </div>
+            </div>
+            <div id="attack-board">
+                <div id="name2">
+                    <h1>Attack Grid</h1>
+                </div>
+                <div class="gameboard-frame">
+                    <div id="gameboard2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="message-container">
+            <p class="wrap"></p>
+        </div>
+        <div class="footer">
+            Developed by
+            <a href="https://github.com/kbelltree">Keiko.S</a>, 2024.
+        </div>
+    </body>
+    <script type="module" src="./index.js"></script>
+</html>
