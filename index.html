@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Battleship Game (The Odin Project)</title>
+        <link rel="stylesheet" href="./src/styles.css" />
+    </head>
+    <body>
+        <!-- Initial Overlay On Load-->
+        <div class="initial-overlay">
+            <h1 id="title">battleship game</h1>
+            <div class="modal-start1">
+                <button id="two-players" class="bw-buttons">
+                    switch to two-player
+                </button>
+                <h2>click enter to begin</h2>
+                <button id="enter-btn" class="blue-buttons" data-game="solo">
+                    enter
+                </button>
+            </div>
+            <div class="modal-start2 hidden">
+                <button id="one-player" class="bw-buttons">
+                    switch to single player
+                </button>
+                <h2>enter player's name (optional)</h2>
+                <form id="form">
+                    <div class="name-entry">
+                        <label for="name1">first player:</label>
+                        <input
+                            type="text"
+                            name="name1"
+                            id="name1"
+                            maxlength="10"
+                        />
+                    </div>
+                    <div class="name-entry">
+                        <label for="name2">second player:</label>
+                        <input
+                            type="text"
+                            name="name2"
+                            id="name2"
+                            maxlength="10"
+                        />
+                    </div>
+                    <button id="clear-btn" type="button" class="bw-buttons">
+                        clear
+                    </button>
+                    <button
+                        id="form-btn"
+                        class="blue-buttons"
+                        data-game="duo"
+                        type="submit"
+                    >
+                        enter
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="ending-overlay hidden">
+            <h1 id="question">Want to replay?</h1>
+            <div class="modal-end">
+                <button id="replay-btn" class="blue-buttons">play again</button>
+            </div>
+        </div>
+
+        <!-- Game Main -->
+        <div class="main-container">
+            <div class="buttons-container">
+                <div class="ship-buttons">
+                    <button id="carrier-btn" data-ship="carrier" class="unset">
+                        carrier
+                    </button>
+                    <button
+                        id="battle-btn"
+                        data-ship="battleShip"
+                        class="unset"
+                    >
+                        battle ship
+                    </button>
+                    <button
+                        id="destroyer-btn"
+                        data-ship="destroyer"
+                        class="unset"
+                    >
+                        destroyer
+                    </button>
+                    <button
+                        id="submarine-btn"
+                        data-ship="submarine"
+                        class="unset"
+                    >
+                        submarine
+                    </button>
+                    <button
+                        id="patrol-btn"
+                        data-ship="patrolShip"
+                        class="unset"
+                    >
+                        patrol ship
+                    </button>
+                </div>
+                <div class="control-buttons">
+                    <button id="rotate-btn">rotate</button>
+                    <button id="reset-btn">reset</button>
+                </div>
+                <!-- for one player -->
+                <button id="start-btn" class="bw-buttons">start</button>
+                <!-- for two players -->
+                <button id="confirm-btn" class="hidden bw-buttons">
+                    confirm
+                </button>
+            </div>
+            <!-- Gameboards -->
+            <div class="gameboard">
+                <div class="grid-title">
+                    <h1 class="gb1-title"></h1>
+                </div>
+                <div class="gameboard-frame">
+                    <div id="gameboard1"></div>
+                </div>
+            </div>
+            <div class="gameboard">
+                <div class="grid-title">
+                    <h1 class="gb2-title"></h1>
+                </div>
+                <div class="gameboard-frame">
+                    <div id="gameboard2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="message-container">
+            <p class="wrap"></p>
+        </div>
+        <div class="footer">
+            Developed by
+            <a href="https://github.com/kbelltree">Keiko.S</a>, 2024.
+        </div>
+    </body>
+    <script type="module" src="./src/index.js"></script>
+</html>
