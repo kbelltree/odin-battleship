@@ -55,9 +55,27 @@ body {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 600;
     text-transform: capitalize;
+}
+
+h2 {
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    margin: 0.75rem 0;
+}
+
+label {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+input {
+    padding: 0.5rem;
+    width: 60%;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
 }
 
 button {
@@ -68,6 +86,9 @@ button {
     border: 2px solid black;
     text-transform: capitalize;
     cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
 
 button:active {
@@ -97,8 +118,9 @@ button:active {
 
 /* modal content for one player */
 .modal-start1,
+.modal-start2,
 .modal-end {
-    background-color: var(--miss-gray);
+    background-color: #dbdbdb;
     padding: 1.75rem;
     border: 2px solid black;
     border-radius: 15px;
@@ -106,6 +128,13 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.name-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 #title,
@@ -116,12 +145,35 @@ button:active {
     margin-bottom: 2rem;
 }
 
-.modal-start1 #enter-btn {
+#title {
+    color: white;
+    text-shadow: 1.5px 3px black;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: black;
+    -webkit-text-fill-color: white;
+}
+
+.blue-buttons {
     background-color: var(--main-blue);
     margin-top: 2rem;
 }
 
+#replay-btn.blue-buttons {
+    margin: auto;
+}
+
+.blue-buttons:hover,
+.blue-buttons:focus {
+    background-color: #80dcff;
+}
+
+.blue-buttons:active {
+    color: white;
+    background-color: #005d80;
+}
+
 /* main game */
+/* layout to display two gameboards */
 .main-container {
     grid-row: 1 / 2;
     display: flex;
@@ -134,7 +186,7 @@ button:active {
     flex-direction: column;
     align-items: center;
     justify-self: center;
-    margin-top: 6rem;
+    margin-top: 6.5rem;
     max-width: 11rem;
 }
 
@@ -159,10 +211,7 @@ button:active {
 
 .ship-buttons > button:hover,
 .ship-buttons > button:focus {
-    background: var(--shipHighlight);
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
+    background-color: var(--shipHighlight);
 }
 
 .control-buttons > button {
@@ -175,13 +224,11 @@ button:active {
 .control-buttons > button:hover,
 .control-buttons > button:focus {
     color: white;
-    background: rgb(134, 133, 133);
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
+    background-color: rgb(134, 133, 133);
 }
 
-#start-btn {
+#start-btn,
+#confirm-btn {
     width: 8rem;
     height: 2.75rem;
     margin-top: 2rem;
@@ -192,22 +239,28 @@ button:active {
 }
 
 #start-btn:hover,
-#start-btn:focus {
+#confirm-btn:hover,
+#start-btn:focus,
+#confirm-btn:focus,
+button.bw-buttons:hover,
+button.bw-buttons:focus {
     color: white;
     background: rgb(134, 133, 133);
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
 }
 
-#name1,
-#name2 {
+#start-btn.bw-buttons:active,
+#confirm-btn.bw-buttons:active,
+button.bw-buttons:active {
+    color: white;
+    background: black;
+}
+
+.grid-title {
     margin: 1.5rem 0;
-    align-self: baseline;
+    align-self: start;
 }
 
-#own-board,
-#attack-board {
+.gameboard {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -218,6 +271,19 @@ button:active {
     height: 0;
     padding-bottom: 100%;
     background-color: var(--main-blue);
+}
+
+.gb1-title,
+.gb2-title {
+    color: white;
+    text-shadow: 0.5px 1.75px black;
+    -webkit-text-stroke-width: 1.25px;
+    -webkit-text-stroke-color: black;
+    -webkit-text-fill-color: white;
+    padding: 0.25rem 0.75rem;
+    transition:
+        background-color 0.3s ease-in-out,
+        box-shadow 0.3s ease-in-out;
 }
 
 #gameboard1,
@@ -246,7 +312,7 @@ button:active {
 
 .message-container {
     grid-row: 2 / 3;
-    width: 65%;
+    width: 100%;
     margin-top: 2rem;
     justify-self: center;
     text-align: center;
@@ -254,15 +320,13 @@ button:active {
 }
 
 .message-container p {
+    width: 50ch;
+    margin: auto;
     font-style: italic;
     font-weight: 600;
     font-size: 1.75rem;
     color: var(--ship-yellow);
-}
-
-.message-container p.highlight {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+    transition: background-color 0.2s;
 }
 
 .footer {
@@ -302,6 +366,32 @@ p .wrap {
     background-color: var(--miss-gray);
 }
 
+.ship-color {
+    /* Ensure absolute positioning for the hit-position */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(245, 249, 121, 0.4);
+}
+
 button.unset {
     background-color: var(--ship-yellow);
+}
+
+.message-container p.highlight {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.gb1-title.active,
+.gb2-title.active {
+    background-color: var(--ship-yellow);
+    box-shadow: 0 0 10px var(--shipHighlight);
+}
+
+/* layout to display one gameboard */
+.main-container.one-gameboard {
+    justify-content: center;
 }

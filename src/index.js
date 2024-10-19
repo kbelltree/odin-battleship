@@ -1,10 +1,8 @@
-import { UIManager } from './uiManager.js';
+import { EventListeners } from './uiManager.js';
 
-UIManager.renderInitialPage();
-UIManager.addEventListenerToEnterButton();
-UIManager.addEventListenerToShipButtons();
-UIManager.addEventListenerToRotateButton();
-UIManager.addEventListenerToResetButton();
-UIManager.addEventListenerToOwnGridSquares();
-UIManager.addEventListenerToStartButton();
-UIManager.addEventListenerToReplayButton();
+EventListeners.renderInitialPage();
+EventListeners.soloGameEnterButton();
+EventListeners.duoGameEnterButton();
+EventListeners.duoGameClearButton();
+EventListeners.shipButtons();
+EventListeners.replayButton();

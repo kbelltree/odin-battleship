@@ -7,47 +7,64 @@
         <link rel="stylesheet" href="./styles.css" />
     </head>
     <body>
+        <!-- Initial Overlay On Load-->
         <div class="initial-overlay">
             <h1 id="title">battleship game</h1>
             <div class="modal-start1">
-                <!-- <button id="two-players">switch to two-player</button> -->
-                <p>Click Enter to begin</p>
-                <button id="enter-btn">enter</button>
+                <button id="two-players" class="bw-buttons">
+                    switch to two-player
+                </button>
+                <h2>click enter to begin</h2>
+                <button id="enter-btn" class="blue-buttons" data-game="solo">
+                    enter
+                </button>
             </div>
             <div class="modal-start2 hidden">
-                <p>This is currently under construction.</p>
-                <button id="one-player">switch to single player</button>
+                <button id="one-player" class="bw-buttons">
+                    switch to single player
+                </button>
                 <h2>enter player's name (optional)</h2>
                 <form id="form">
-                    <div>
+                    <div class="name-entry">
                         <label for="name1">first player:</label>
                         <input
                             type="text"
                             name="name1"
                             id="name1"
-                            maxlength="18"
+                            maxlength="10"
                         />
                     </div>
-                    <div>
+                    <div class="name-entry">
                         <label for="name2">second player:</label>
                         <input
                             type="text"
                             name="name2"
                             id="name2"
-                            maxlength="18"
+                            maxlength="10"
                         />
                     </div>
-                    <button id="cancel-btn" type="button">cancel</button>
-                    <button id="form-btn">enter</button>
+                    <button id="clear-btn" type="button" class="bw-buttons">
+                        clear
+                    </button>
+                    <button
+                        id="form-btn"
+                        class="blue-buttons"
+                        data-game="duo"
+                        type="submit"
+                    >
+                        enter
+                    </button>
                 </form>
             </div>
         </div>
         <div class="ending-overlay hidden">
             <h1 id="question">Want to replay?</h1>
             <div class="modal-end">
-                <button id="replay-btn">play again</button>
+                <button id="replay-btn" class="blue-buttons">play again</button>
             </div>
         </div>
+
+        <!-- Game Main -->
         <div class="main-container">
             <div class="buttons-container">
                 <div class="ship-buttons">
@@ -87,19 +104,25 @@
                     <button id="rotate-btn">rotate</button>
                     <button id="reset-btn">reset</button>
                 </div>
-                <button id="start-btn">start</button>
+                <!-- for one player -->
+                <button id="start-btn" class="bw-buttons">start</button>
+                <!-- for two players -->
+                <button id="confirm-btn" class="hidden bw-buttons">
+                    confirm
+                </button>
             </div>
-            <div id="own-board">
-                <div id="name1">
-                    <h1>Own Grid</h1>
+            <!-- Gameboards -->
+            <div class="gameboard">
+                <div class="grid-title">
+                    <h1 class="gb1-title"></h1>
                 </div>
                 <div class="gameboard-frame">
                     <div id="gameboard1"></div>
                 </div>
             </div>
-            <div id="attack-board">
-                <div id="name2">
-                    <h1>Attack Grid</h1>
+            <div class="gameboard">
+                <div class="grid-title">
+                    <h1 class="gb2-title"></h1>
                 </div>
                 <div class="gameboard-frame">
                     <div id="gameboard2"></div>
