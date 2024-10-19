@@ -426,6 +426,7 @@ const DOMInteractions = {
     // Reconstruct the game back the initial state
     _restoreGame: function () {
         DOMInteractions.Utilities._clearFormEntry('form');
+        DisplayManager.Utilities._removeMessage();
         DisplayManager._removeHighlightFromTitle();
         DisplayManager._refreshGameboardGrid('#gameboard1');
         DisplayManager._refreshGameboardGrid('#gameboard2');
@@ -508,12 +509,12 @@ const SoloGame = {
         },
 
         // Attach to enter button
-        _enter: function (e) {
-            const gameType = e.target.dataset.game;
-            console.log(
-                '_handleGameTypeClickOnEntryModal invoked on entry button click, dataset-game: ',
-                gameType
-            );
+        _enter: function () {
+            // const gameType = e.target.dataset.game;
+            // console.log(
+            //     '_handleGameTypeClickOnEntryModal invoked on entry button click, dataset-game: ',
+            //     gameType
+            // );
             SoloGame._setUpInitialGamePage();
 
             // Activate positioning mode on #gameboard1
@@ -637,7 +638,6 @@ const SoloGame = {
         // Show replay button
         setTimeout(() => {
             DisplayManager.Utilities._showContent('.ending-overlay');
-            DisplayManager.Utilities._removeMessage(); // TODO: remove if it is not needed.
         }, 5000);
     },
 
@@ -1147,7 +1147,6 @@ const DuoGame = {
         // Show replay button
         setTimeout(() => {
             DisplayManager.Utilities._showContent('.ending-overlay');
-            DisplayManager.Utilities._removeMessage(); // TODO: remove if it is not needed.
         }, 5000);
     },
 
@@ -1226,9 +1225,9 @@ const EventListeners = {
     },
 
     soloGameEnterButton: function () {
-        EventListeners.Utilities._handleElementClick('#enter-btn', (e) => {
+        EventListeners.Utilities._handleElementClick('#enter-btn', () => {
             DisplayManager.Utilities._hideContent('.initial-overlay');
-            SoloGame.Handlers._enter(e);
+            SoloGame.Handlers._enter();
         });
     },
 

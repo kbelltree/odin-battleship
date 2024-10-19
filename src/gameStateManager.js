@@ -27,7 +27,6 @@ function setInitialGameState(namePlayer1, namePlayer2) {
         player1: initiatePlayer(namePlayer1),
         player2: initiatePlayer(namePlayer2),
     };
-    console.log('initialState: ', GameState.initialState);
 }
 
 // Get players data
@@ -44,7 +43,6 @@ function updateInitialStateByPlayerKey(playerKey, gameboardObj) {
     if (GameState.initialState[playerKey].gameboard) {
         GameState.initialState[playerKey].gameboard = gameboardObj;
     }
-    console.log('initialState after update: ', GameState.initialState);
 }
 
 // Reset the ship positioning state object for a new ship positioning
