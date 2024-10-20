@@ -1,25 +1,31 @@
 import { initiatePlayer } from './players.js';
 
 let GameState = {
-    // State manager variables for ship positioning
-    initialState: null,
-    shipPositioningState: {
-        shipName: null,
-        headPosition: null,
-        isHorizontal: true,
-        isPositionConfirmed: false,
-    },
-
-    // State manager for the game to proceed
-    gameInProgressState: null,
-    currentTurn: 'player1',
-
-    // Computer's attack state manager for Human vs Computer
-    // Use adjacent positions of a hit position for make computer smart
-    computerAttackState: {
-        adjacentPositions: [],
-    },
 };
+
+// Ensure the GameState contains with new game state without previous data
+function startNewGameState() {
+    GameState = {
+        // State manager variables for ship positioning
+        initialState: null,
+        shipPositioningState: {
+            shipName: null,
+            headPosition: null,
+            isHorizontal: true,
+            isPositionConfirmed: false,
+        },
+
+        // State manager for the game to proceed
+        gameInProgressState: null,
+        currentTurn: 'player1',
+
+        // Computer's attack state manager for Human vs Computer
+        // Use adjacent positions of a hit position for make computer smart
+        computerAttackState: {
+            adjacentPositions: [],
+        },
+    };
+}
 
 // Return the initial state object containing both gameboards
 function setInitialGameState(namePlayer1, namePlayer2) {
@@ -101,6 +107,7 @@ function getCurrentTurn() {
 
 // Wrap all public functions in an object (namespacing);
 const GameManager = {
+    startNewGameState,
     setInitialGameState,
     getInitialState,
     updateInitialStateByPlayerKey,
