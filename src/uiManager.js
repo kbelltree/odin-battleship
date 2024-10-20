@@ -510,11 +510,6 @@ const SoloGame = {
 
         // Attach to enter button
         _enter: function () {
-            // const gameType = e.target.dataset.game;
-            // console.log(
-            //     '_handleGameTypeClickOnEntryModal invoked on entry button click, dataset-game: ',
-            //     gameType
-            // );
             SoloGame._setUpInitialGamePage();
 
             // Activate positioning mode on #gameboard1
@@ -843,6 +838,12 @@ const DuoGame = {
                 // Display another grid
                 DisplayManager._displayGameboardGrid('#gameboard2');
                 DuoGame._toggleGameboard2Display(false);
+
+                // Ensure SoloGame attack mode is removed from gameboard2
+                EventListeners.Utilities._removeClickHandler(
+                    '#gameboard2',
+                    SoloGame._enableAttackMode
+                );
 
                 // Display titles and message
                 DuoGame._displayGameboardTitlesByState({
@@ -1177,7 +1178,7 @@ const DuoGame = {
 
         // After player 2 attacked, check if the game is over
         const gameResult = DuoGame._checkGameIsOver(gameData);
-
+       
         // If game is over,
         if (gameResult.isGameOver) {
             // Display all ships at the end
@@ -1221,7 +1222,7 @@ const EventListeners = {
     renderInitialPage: function () {
         DisplayManager.Utilities._showContent('.initial-overlay');
         DisplayManager._displayEntryModal();
-        GameManager.resetShipPositioningState();
+        GameManager.startNewGameState();
     },
 
     soloGameEnterButton: function () {
