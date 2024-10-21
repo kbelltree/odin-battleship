@@ -7,39 +7,21 @@ function _randomIntegerGenerator(min, max) {
 }
 
 // Get a head position by ship
-function _generateRandomShipHeadPosition(shipName) {
-    switch (shipName) {
-        // carrier boundary: 1 - 6
-        case 'carrier':
-            return [
-                _randomIntegerGenerator(1, 6),
-                _randomIntegerGenerator(1, 6),
-            ];
+function _generateRandomShipHeadPosition(shipLength, isHorizontal) {
+    const boundary = 10 - shipLength + 1;
 
-        // battleShip boundary: 1 - 7
-        case 'battleShip':
-            return [
-                _randomIntegerGenerator(1, 7),
-                _randomIntegerGenerator(1, 7),
-            ];
-
-        // destroyer and submarine boundaries: 1 - 8
-        case 'destroyer':
-        case 'submarine':
-            return [
-                _randomIntegerGenerator(1, 8),
-                _randomIntegerGenerator(1, 8),
-            ];
-
-        // patrolShip boundary: 1 - 9
-        case 'patrolShip':
-            return [
-                _randomIntegerGenerator(1, 9),
-                _randomIntegerGenerator(1, 9),
-            ];
-
-        default:
-            return null;
+    // If horizontal, ensure x coordinate can accommodate the entire ship length within the grid
+    if (isHorizontal) {
+        return [
+            _randomIntegerGenerator(1, boundary),
+            _randomIntegerGenerator(1, 10),
+        ];
+        // If vertical, ensure y coordinate can accommodate the entire ship length within the grid
+    } else {
+        return [
+            _randomIntegerGenerator(1, 10),
+            _randomIntegerGenerator(1, boundary),
+        ];
     }
 }
 
@@ -54,27 +36,35 @@ function _getBooleanForShipOrientation() {
 }
 
 // Assemble all generated ship positioning data for computer
-function _generateShipPositioningData(shipName) {
+function _generateShipPositioningData(shipName, shipLength, isHorizontal) {
     return {
         shipName: shipName,
-        headPosition: _generateRandomShipHeadPosition(shipName),
-        isHorizontal: _getBooleanForShipOrientation(),
+        isHorizontal: isHorizontal,
+        headPosition: _generateRandomShipHeadPosition(shipLength, isHorizontal),
         isPositionConfirmed: false,
     };
 }
 
 // Ensure the generated position is not taken by other ship position to avoid overwrap
 function _setValidShipPosition(shipName, gameboardObj) {
+    // Get the ship's length
+    const shipLength = gameboardObj.ships[shipName].length;
+
     // Check if a position is assigned to the ship
-    let shipPositionLength = gameboardObj.ships[shipName].position.size;
+    let shipPositionSize = gameboardObj.ships[shipName].position.size;
 
     // Repeat positioning until the valid position is assigned to the ship
-    while (shipPositionLength <= 0) {
+    while (shipPositionSize <= 0) {
+        const shipPositioningData = _generateShipPositioningData(
+            shipName,
+            shipLength,
+            _getBooleanForShipOrientation()
+        );
         gameboardObj = Gameboard.setShipPosition(
             gameboardObj,
-            _generateShipPositioningData(shipName)
+            shipPositioningData
         );
-        shipPositionLength = gameboardObj.ships[shipName].position.size;
+        shipPositionSize = gameboardObj.ships[shipName].position.size;
     }
     return gameboardObj;
 }
